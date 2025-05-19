@@ -18,6 +18,10 @@ public class RecursiveProgramsBasics {
         int max = Integer.MIN_VALUE;
         System.out.println(findMaxRecursively(new int[]{1,4,5,6,3,2,9},0,max));
         System.out.println(isPresentInAString("Sayan",'a',0));
+
+
+        System.out.println("----------------------------------------");
+        printDigits(647);
     }
     static int factorialRecursive(int n){
         if (n<2) return 1;
@@ -83,6 +87,14 @@ public class RecursiveProgramsBasics {
     static boolean isPresentInAString(String str, char c,int i){
         if(i == str.length()) return false;
         return str.charAt(i) == c || isPresentInAString(str,c,i+1);
+
+    }
+
+    static void printDigits(int num){
+        if(num == 0) return;
+        printDigits(num/10);
+        System.out.print(num%10);
+
 
     }
 }
