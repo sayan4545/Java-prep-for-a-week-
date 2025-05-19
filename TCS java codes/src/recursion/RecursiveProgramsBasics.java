@@ -7,6 +7,13 @@ public class RecursiveProgramsBasics {
         count(5);
         System.out.println();
         System.out.println(climbStairs(3));
+        System.out.println(powerOfThree(27));
+        System.out.println(powerOfThree(1));
+        System.out.println(powerOfThree(-1));
+        System.out.println(powerOfThree(7));
+        System.out.println("----------------------------------");
+
+        printArray(new int[]{1,2,3,4,5},5);
     }
     static int factorialRecursive(int n){
         if (n<2) return 1;
@@ -33,5 +40,25 @@ public class RecursiveProgramsBasics {
         if(n == 0) return;
         count(n-1);
         System.out.print(n+ " ");
+    }
+    static boolean powerOfThree(int num){
+        // bc
+        if(num == 1) return true;
+        if(num <= 0) return false;
+        return (num %3 ==0) && powerOfThree(num/3);
+    }
+    static boolean powerOfFour(int num){
+        if(num == 1) return true;
+        if(num <= 0) return false;
+        return (num % 4 == 0) && powerOfFour(num/4);
+    }
+    static void printArray(int[] arr, int i){
+        if(i == arr.length) {
+            System.out.println("Traversed whole length of the array , or the iterator is out of the array length.");
+            return;
+        }
+        System.out.print(arr[i] + " ");
+        i++;
+        printArray(arr,i);
     }
 }
