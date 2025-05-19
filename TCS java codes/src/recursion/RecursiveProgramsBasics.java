@@ -14,6 +14,10 @@ public class RecursiveProgramsBasics {
         System.out.println("----------------------------------");
 
         printArray(new int[]{1,2,3,4,5},5);
+        System.out.println("----------------------------------");
+        int max = Integer.MIN_VALUE;
+        System.out.println(findMaxRecursively(new int[]{1,4,5,6,3,2,9},0,max));
+        System.out.println(isPresentInAString("Sayan",'a',0));
     }
     static int factorialRecursive(int n){
         if (n<2) return 1;
@@ -60,5 +64,25 @@ public class RecursiveProgramsBasics {
         System.out.print(arr[i] + " ");
         i++;
         printArray(arr,i);
+    }
+    static int findMaxRecursively(int[] arr,int i,int max){
+
+        // bc
+        if(i == arr.length){
+            System.out.println("Traversed whole length of the array, or iterator has been set out of the array size");
+            return max;
+        }
+        if(arr[i] > max){
+            max = arr[i];
+
+        }
+        return findMaxRecursively(arr,i+1, max);
+
+    }
+
+    static boolean isPresentInAString(String str, char c,int i){
+        if(i == str.length()) return false;
+        return str.charAt(i) == c || isPresentInAString(str,c,i+1);
+
     }
 }
