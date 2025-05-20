@@ -26,6 +26,7 @@ public class ComparatorvsComparableImpl {
         System.out.println(Arrays.toString(intArray));
 
 
-
+        Arrays.sort(CarArray, new CarNameComparator());
+        System.out.println(Arrays.toString(CarArray));
     }
 }
