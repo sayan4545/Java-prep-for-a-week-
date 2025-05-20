@@ -27,7 +27,22 @@ public class IterableInterface {
 
         List<Integer> valuesModified = values.stream().map(val -> val *2).collect(Collectors.toList());
         System.out.println(valuesModified);
-
+        List<Integer> l1 = new ArrayList<>();
+        List<Integer> l2 = new ArrayList<>();
+        l1.add(1);
+        l1.add(10);
+        l1.add(100);
+        l1.add(200);
+        l1.add(300);
+        l1.add(400);
+        l2.add(2);
+        l2.add(20);
+        l2.add(200);
+        l2.add(300);
+        System.out.println(l1);
+        System.out.println(l2);
+        System.out.println(l1.isEmpty());
+        System.out.println(l2.contains(300));
 
     }
 }
