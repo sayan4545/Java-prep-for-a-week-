@@ -1,10 +1,18 @@
 package generics;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static generics.Sample.DoubleSum;
+
 class Object{
 
 }
 class Animal extends Object{
+    void makeSound(){
+        System.out.println(this + "makes sound");
+    }
 
 }
 class Dog extends Animal{
@@ -26,6 +34,7 @@ class Home<T extends Animal>{ // This is unbounded restrictions. The Home class 
     private T animal2;
 
     public T getAnimal1(){
+        animal1.makeSound();
         return animal1;
     }
     public T getAnimal2(){
@@ -38,8 +47,26 @@ class Home<T extends Animal>{ // This is unbounded restrictions. The Home class 
 }
 public class Main {
     public static void main(String[] args) {
-        Home<Cat> catHome = new Home<>(new Cat(),new Cat());
-        Home<Dog> dogHome = new Home<>(new Dog(),new Dog());
+//        Home<Husky> huskyHome = new Home<>(new Husky(),new Husky());
+//        Home<Dog> dogHome = new Home<>(new Dog(),new Dog());
+//        dogHome.getAnimal1();
+
+        List<Integer> listOfIntegers = new ArrayList<>();
+        listOfIntegers.add(12);
+        listOfIntegers.add(10);
+        System.out.println(DoubleSum(listOfIntegers));
+
+        List<? extends Number> list1;
+        list1 = new ArrayList<Double>();
+        // The above list declaration, bars us from accessing the methods to write.
+        // since it dont have the access to the initialization type parameter.
+
+
+
+
+
+
+
 
     }
 }
