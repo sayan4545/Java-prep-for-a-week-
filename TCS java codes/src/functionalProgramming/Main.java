@@ -1,11 +1,11 @@
 package functionalProgramming;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -60,9 +60,57 @@ public class Main {
 
         listConsume.accept(list);
 
+        Consumer<List<Integer>> consumeAndThenDemo = x->{
+            for(Integer a : x){
+                a = a*2;
+            }
+        };
+
+        consumeAndThenDemo.andThen(listConsume).accept(list);
+
+        System.out.println();
+        // supplier
+
+
+        Supplier<String> giveHelloWorld = () -> "Hello World!";
+
+        System.out.println(giveHelloWorld.get());
+
+        // mixed example
+        Predicate<Integer> ifEven = x->x%2==0;
+        Function<Integer,Integer> function = x->x*x;
+        Consumer<Integer> consumer = System.out::println;
+        Supplier<Integer> supplier = () -> 7;
+        System.out.println("<<--result -->>");
+        if(ifEven.test(supplier.get())){
+            consumer.accept(function.apply(supplier.get()));
+        }
+
+
+        // BiPredicate, BiConsumer, BiFunction
+        BiPredicate<Integer,Integer> isSumEven = (x,y)-> (x+y)%2==0;
+        isSumEven.test(8,8);
+        BiFunction<Integer,Integer,Integer> bifunc = (x,y)-> x*y;
+        BiConsumer<Integer,Integer> biCon = (x,y)-> System.out.println(bifunc.apply(x,y));
+
+
+        biCon.accept(6,7);
+
+        List<String> listOfString = new ArrayList<>(Arrays.asList("A","B","C"));
+        List<MobilePhone> listOfMobilePhones = listOfString.stream().map(MobilePhone::new).toList();
+        listOfMobilePhones.forEach(System.out::println);
 
 
 
+    }
+    static class MobilePhone{
+        String name;
+        public MobilePhone(String name){
+            this.name = name;
+        }
+        public String toString(){
+            return this.name +" ";
+        }
     }
 }
 
