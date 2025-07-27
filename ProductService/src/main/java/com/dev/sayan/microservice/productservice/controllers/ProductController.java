@@ -2,11 +2,13 @@ package com.dev.sayan.microservice.productservice.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,6 +24,27 @@ public class ProductController {
     @Autowired
     //RestTemplate restTemplate;
     RestClient restClient;
+
+    @GetMapping("/getOrder/{id}")
+    public ResponseEntity<String> getOrder(@PathVariable Long id){
+
+        String responseObj = restClient
+                .get()
+                .uri("http://localhost:8081/"+id)
+                .retrieve()
+                .onStatus(response ->{
+                    if(response.getStatusCode().is4xxClientError()) {
+                        throw new HttpClientErrorException(response.getStatusCode());
+                    }
+                    if(response.getStatusCode().is5xxServerError()) {
+                        throw new HttpClientErrorException(response.getStatusCode());
+                    }
+                    return false;
+                }).body(String.class);
+
+        System.out.println("Response: "+responseObj);
+        return new ResponseEntity<>(responseObj, HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getOrderFromProduct(@PathVariable Long id){
