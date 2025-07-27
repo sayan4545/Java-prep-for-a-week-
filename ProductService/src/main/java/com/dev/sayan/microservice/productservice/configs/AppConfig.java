@@ -1,7 +1,9 @@
 package com.dev.sayan.microservice.productservice.configs;
 
+import com.dev.sayan.microservice.productservice.interceptors.MyInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
@@ -19,8 +21,15 @@ public class AppConfig {
     }
 
     @Bean
-    public RestClient restClient(){
+    public MyInterceptor  myInterceptor() {
+        return new MyInterceptor();
+    }
+
+    @Bean
+    public RestClient restClient(ClientHttpRequestInterceptor clientHttpRequestInterceptor){
+
         return RestClient.builder()
+                .requestInterceptor(clientHttpRequestInterceptor)
                 .build();
     }
 }
