@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
@@ -19,12 +20,17 @@ import java.net.URL;
 public class ProductController {
 
     @Autowired
-    RestTemplate restTemplate;
+    //RestTemplate restTemplate;
+    RestClient restClient;
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getOrderFromProduct(@PathVariable Long id){
 
-        String response =  restTemplate.getForObject("http://localhost:8081/"+id,String.class);
+       // String response =  restTemplate.getForObject("http://localhost:8081/"+id,String.class);
+        String response = restClient.get()
+                        .uri("http://localhost:8081/"+id)
+                                .retrieve()
+                                        .body(String.class);
         System.out.println("Response: " + response);
 
 //        HttpURLConnection  httpURLConnection = null;
